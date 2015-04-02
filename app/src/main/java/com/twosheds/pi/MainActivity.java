@@ -125,7 +125,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void updateViews(double pi) {
-        piView.setText(String.format("\u03C0 = %1.5f", pi));
-        stepView.setText(getString(R.string.steps, countTotal));
+        piView.setText(getString(R.string.pi, pi));
+        stepView.setText(getString(R.string.iteration, countTotal));
     }
 }
