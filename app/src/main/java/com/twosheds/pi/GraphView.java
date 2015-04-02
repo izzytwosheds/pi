@@ -85,4 +85,8 @@ public class GraphView extends View {
         }
         postInvalidate();
     }
+
+    void clearPoints() {
+        points.clear();
+    }
 }

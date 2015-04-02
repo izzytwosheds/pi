@@ -7,21 +7,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
+    private static final double PRECISION = 0.00001;
     private static final int EVENT_NEW_VALUE = 1;
 
     private Random random;
 
     private static int countInside;
     private static int countTotal;
+    private static boolean isRunning;
 
-    GraphView graphView;
-    TextView piView;
-    TextView stepView;
+    private GraphView graphView;
+    private TextView piView;
+    private TextView stepView;
+    private Button startButton;
 
     private Handler handler = new Handler() {
         @Override
@@ -29,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
             int event = message.what;
             switch (event) {
                 case EVENT_NEW_VALUE:
-                    piView.setText(String.format("%f", (double) message.obj));
+                    piView.setText(String.format("%1.5f", (double) message.obj));
                     stepView.setText(String.valueOf(countTotal));
                     break;
             }
@@ -44,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
         graphView = (GraphView) findViewById(R.id.graph);
         piView = (TextView) findViewById(R.id.pi);
         stepView = (TextView) findViewById(R.id.steps);
+        startButton = (Button) findViewById(R.id.button_start);
 
         countTotal = 0;
         countInside = 0;
@@ -74,38 +79,48 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onStartCalculation(View view) {
-        Thread drawThread = new Thread() {
-            @Override
-            public void run() {
-                double oldPi = 1.0;
-                double pi = 0.0;
-                while (Math.abs(oldPi-pi) > 0.00001) {
-                    double x = random.nextDouble() * 2 - 1;
-                    double y = random.nextDouble() * 2 - 1;
-                    double distance = Math.sqrt(x * x + y * y);
-                    boolean isInside = distance < 1;
-                    if (isInside) {
-                        countInside++;
-                    }
-                    countTotal++;
+        if (isRunning) {
+            isRunning = false;
+            startButton.setText(R.string.action_start);
+            countTotal = 0;
+            countInside = 0;
+            graphView.clearPoints();
+        } else {
+            isRunning = true;
+            startButton.setText(R.string.action_stop);
+            Thread drawThread = new Thread() {
+                @Override
+                public void run() {
+                    double oldPi = 1.0;
+                    double pi = 0.0;
+                    while (isRunning && Math.abs(oldPi - pi) > PRECISION) {
+                        double x = random.nextDouble() * 2 - 1;
+                        double y = random.nextDouble() * 2 - 1;
+                        double distance = Math.sqrt(x * x + y * y);
+                        boolean isInside = distance < 1;
+                        if (isInside) {
+                            countInside++;
+                        }
+                        countTotal++;
 
-                    if (countTotal != countInside) {
-                        oldPi = pi;
-                    }
-                    pi = (double) countInside * 4.0d / (double) countTotal;
+                        if (countTotal != countInside) {
+                            oldPi = pi;
+                        }
+                        pi = (double) countInside * 4.0d / (double) countTotal;
 
-                    Message msg = handler.obtainMessage(EVENT_NEW_VALUE);
-                    msg.obj = pi;
-                    msg.sendToTarget();
-                    graphView.drawPoint(x, y, isInside);
-                    try {
-                        sleep(5);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Message msg = handler.obtainMessage(EVENT_NEW_VALUE);
+                        msg.obj = pi;
+                        msg.sendToTarget();
+                        graphView.drawPoint(x, y, isInside);
+                        try {
+                            sleep(5);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        };
-        drawThread.start();
+            };
+            drawThread.start();
+        }
     }
 }
