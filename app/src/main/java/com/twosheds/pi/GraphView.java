@@ -1,6 +1,7 @@
 package com.twosheds.pi;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,9 +9,8 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.ArrayList;
-
 public class GraphView extends View {
+    private Paint paintBackground;
     private Paint paintSquare;
     private Paint paintCircle;
     private Paint paintPointInside;
@@ -19,26 +19,17 @@ public class GraphView extends View {
     private float radius;
     private Point center;
 
-    private ArrayList<DrawPoint> points;
-
-    private class DrawPoint {
-        private int x;
-        private int y;
-        private boolean isInside;
-
-        DrawPoint(int x, int y, boolean isInside) {
-            this.x = x;
-            this.y = y;
-            this.isInside = isInside;
-        }
-    }
+    private Bitmap bitmap;
+    private Canvas canvas;
 
     public GraphView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        points = new ArrayList<>(32000);
-
         // TODO: move to style
+        paintBackground = new Paint();
+        paintBackground.setColor(Color.BLACK);
+        paintBackground.setStyle(Paint.Style.FILL);
+
         paintSquare = new Paint();
         paintSquare.setColor(Color.BLUE);
         paintSquare.setStrokeWidth(3.0f);
@@ -62,31 +53,32 @@ public class GraphView extends View {
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         radius = Math.min(w, h)/2;
         center = new Point(w/2, h/2);
+
+        // TODO: handle existing bitmap
+        bitmap = Bitmap.createBitmap((int)radius*2, (int)radius*2, Bitmap.Config.RGB_565);
+        canvas = new Canvas(bitmap);
+        resetCanvas();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.drawRect(center.x-radius, center.y-radius, center.x+radius, center.y+radius, paintSquare);
-        canvas.drawCircle(center.x, center.y, radius, paintCircle);
-
-        synchronized (points) {
-            for (DrawPoint point : points) {
-                canvas.drawCircle(point.x, point.y, 3, point.isInside ? paintPointInside : paintPointOutside);
-            }
-        }
+        canvas.drawBitmap(bitmap, center.x - radius, center.y - radius, null);
     }
 
     void drawPoint(double x, double y, boolean isInside) {
-        int drawX = (int) (radius * x) + center.x;
-        int drawY = (int) (radius * y) + center.y;
-        DrawPoint point = new DrawPoint(drawX, drawY, isInside);
-        synchronized (points) {
-            points.add(point);
-        }
+        int drawX = (int) (radius * x + radius);
+        int drawY = (int) (radius * y + radius);
+        canvas.drawCircle(drawX, drawY, 2, isInside ? paintPointInside : paintPointOutside);
         postInvalidate();
     }
 
     void clearPoints() {
-        points.clear();
+        resetCanvas();
+    }
+
+    private void resetCanvas() {
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paintBackground);
+        canvas.drawRect(0, 0, radius*2, radius*2, paintSquare);
+        canvas.drawCircle(radius, radius, radius, paintCircle);
     }
 }
