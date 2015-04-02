@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
-    private static final double PRECISION = 0.00001;
+    private static final double PRECISION = 0.00000000000001;
     private static final int EVENT_NEW_VALUE = 1;
 
     private Random random;
