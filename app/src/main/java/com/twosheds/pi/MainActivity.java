@@ -15,6 +15,7 @@ import java.util.Random;
 public class MainActivity extends ActionBarActivity {
     private static final double PRECISION = 0.00000000000001;
     private static final int EVENT_NEW_VALUE = 1;
+    private static final int EVENT_FINISHED_CALCULATION = 2;
 
     private Random random;
 
@@ -34,6 +35,9 @@ public class MainActivity extends ActionBarActivity {
             switch (event) {
                 case EVENT_NEW_VALUE:
                     updateViews((double) message.obj);
+                    break;
+                case EVENT_FINISHED_CALCULATION:
+                    stopCalculation();
                     break;
             }
         }
@@ -80,11 +84,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void onStartCalculation(View view) {
         if (isRunning) {
-            isRunning = false;
-            startButton.setText(R.string.action_start);
-            countTotal = 0;
-            countInside = 0;
-            graphView.clearPoints();
+            stopCalculation();
         } else {
             isRunning = true;
             startButton.setText(R.string.action_stop);
@@ -93,6 +93,7 @@ public class MainActivity extends ActionBarActivity {
                 public void run() {
                     double oldPi = 10.0;
                     double pi = 20.0;
+                    graphView.clearPoints();
                     while (isRunning && Math.abs(oldPi - pi) > PRECISION) {
                         double x = random.nextDouble() * 2 - 1;
                         double y = random.nextDouble() * 2 - 1;
@@ -118,6 +119,7 @@ public class MainActivity extends ActionBarActivity {
                             e.printStackTrace();
                         }
                     }
+                    handler.obtainMessage(EVENT_FINISHED_CALCULATION).sendToTarget();
                 }
             };
             drawThread.start();
@@ -127,5 +129,12 @@ public class MainActivity extends ActionBarActivity {
     private void updateViews(double pi) {
         piView.setText(getString(R.string.pi, pi));
         stepView.setText(getString(R.string.iteration, countTotal));
+    }
+
+    private void stopCalculation() {
+        isRunning = false;
+        startButton.setText(R.string.action_start);
+        countTotal = 0;
+        countInside = 0;
     }
 }
