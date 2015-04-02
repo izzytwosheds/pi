@@ -91,8 +91,8 @@ public class MainActivity extends ActionBarActivity {
             Thread drawThread = new Thread() {
                 @Override
                 public void run() {
-                    double oldPi = 1.0;
-                    double pi = 0.0;
+                    double oldPi = 10.0;
+                    double pi = 20.0;
                     while (isRunning && Math.abs(oldPi - pi) > PRECISION) {
                         double x = random.nextDouble() * 2 - 1;
                         double y = random.nextDouble() * 2 - 1;
@@ -113,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
                         msg.sendToTarget();
                         graphView.drawPoint(x, y, isInside);
                         try {
-                            sleep(5);
+                            sleep(1);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
