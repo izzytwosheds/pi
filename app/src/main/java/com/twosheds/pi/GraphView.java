@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class GraphView extends View {
     private Paint paintSquare;
     private Paint paintCircle;
+    private Paint paintPointInside;
+    private Paint paintPointOutside;
 
     private float radius;
     private Point center;
@@ -46,6 +48,14 @@ public class GraphView extends View {
         paintCircle.setColor(Color.RED);
         paintCircle.setStrokeWidth(3.0f);
         paintCircle.setStyle(Paint.Style.STROKE);
+
+        paintPointInside = new Paint();
+        paintPointInside.setColor(Color.RED);
+        paintPointInside.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        paintPointOutside = new Paint();
+        paintPointOutside.setColor(Color.BLUE);
+        paintPointOutside.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
     @Override
@@ -59,21 +69,20 @@ public class GraphView extends View {
         canvas.drawRect(center.x-radius, center.y-radius, center.x+radius, center.y+radius, paintSquare);
         canvas.drawCircle(center.x, center.y, radius, paintCircle);
 
-        for (DrawPoint point:points) {
-            if (point.isInside) {
-                canvas.drawCircle(point.x, point.y, 10, paintCircle);
-            } else {
-                canvas.drawCircle(point.x, point.y, 10, paintSquare);
+        synchronized (points) {
+            for (DrawPoint point : points) {
+                canvas.drawCircle(point.x, point.y, 3, point.isInside ? paintPointInside : paintPointOutside);
             }
         }
-
     }
 
     void drawPoint(double x, double y, boolean isInside) {
         int drawX = (int) (radius * x) + center.x;
         int drawY = (int) (radius * y) + center.y;
         DrawPoint point = new DrawPoint(drawX, drawY, isInside);
-        points.add(point);
+        synchronized (points) {
+            points.add(point);
+        }
         postInvalidate();
     }
 }

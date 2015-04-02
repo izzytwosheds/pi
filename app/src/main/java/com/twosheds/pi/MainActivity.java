@@ -19,8 +19,6 @@ public class MainActivity extends ActionBarActivity {
     private static int countInside;
     private static int countTotal;
 
-    private double pi;
-
     GraphView graphView;
     TextView piView;
     TextView stepView;
@@ -31,8 +29,7 @@ public class MainActivity extends ActionBarActivity {
             int event = message.what;
             switch (event) {
                 case EVENT_NEW_VALUE:
-                    double pi = (double) countInside * 4.0d / (double) countTotal;
-                    piView.setText(String.format("%f", pi));
+                    piView.setText(String.format("%f", (double) message.obj));
                     stepView.setText(String.valueOf(countTotal));
                     break;
             }
@@ -80,20 +77,29 @@ public class MainActivity extends ActionBarActivity {
         Thread drawThread = new Thread() {
             @Override
             public void run() {
-                for (int i=0; i<5000; i++) {
+                double oldPi = 1.0;
+                double pi = 0.0;
+                while (Math.abs(oldPi-pi) > 0.00001) {
                     double x = random.nextDouble() * 2 - 1;
                     double y = random.nextDouble() * 2 - 1;
                     double distance = Math.sqrt(x * x + y * y);
-                    boolean isInside = distance <= 1;
+                    boolean isInside = distance < 1;
                     if (isInside) {
                         countInside++;
                     }
                     countTotal++;
 
-                    handler.obtainMessage(EVENT_NEW_VALUE).sendToTarget();
+                    if (countTotal != countInside) {
+                        oldPi = pi;
+                    }
+                    pi = (double) countInside * 4.0d / (double) countTotal;
+
+                    Message msg = handler.obtainMessage(EVENT_NEW_VALUE);
+                    msg.obj = pi;
+                    msg.sendToTarget();
                     graphView.drawPoint(x, y, isInside);
                     try {
-                        sleep(50);
+                        sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
