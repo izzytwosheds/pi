@@ -33,8 +33,7 @@ public class MainActivity extends ActionBarActivity {
             int event = message.what;
             switch (event) {
                 case EVENT_NEW_VALUE:
-                    piView.setText(String.format("%1.5f", (double) message.obj));
-                    stepView.setText(String.valueOf(countTotal));
+                    updateViews((double) message.obj);
                     break;
             }
         }
@@ -54,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
         countInside = 0;
 
         random = new Random();
+        updateViews(0.0);
     }
 
     @Override
@@ -122,5 +122,10 @@ public class MainActivity extends ActionBarActivity {
             };
             drawThread.start();
         }
+    }
+
+    private void updateViews(double pi) {
+        piView.setText(String.format("\u03C0 = %1.5f", pi));
+        stepView.setText(getString(R.string.steps, countTotal));
     }
 }
