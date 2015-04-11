@@ -95,10 +95,9 @@ public class MainActivity extends ActionBarActivity {
                     double pi = 20.0;
                     graphView.clearPoints();
                     while (isRunning && Math.abs(oldPi - pi) > PRECISION) {
-                        double x = random.nextDouble() * 2 - 1;
-                        double y = random.nextDouble() * 2 - 1;
-                        double distance = Math.sqrt(x * x + y * y);
-                        boolean isInside = distance < 1;
+                        double x = random.nextDouble() * 2.0d - 1.0d;
+                        double y = random.nextDouble() * 2.0d - 1.0d;
+                        boolean isInside  = (x * x + y * y) < 1.0d;
                         if (isInside) {
                             countInside++;
                         }
