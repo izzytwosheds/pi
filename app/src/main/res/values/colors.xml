@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#000000</color>
+    <color name="square">#437ED0</color>
+    <color name="cicle">#D40B00</color>
+    <color name="pi">#314159</color>
+</resources>
