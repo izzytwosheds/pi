@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_start">Start</string>
     <string name="action_stop">Stop</string>
-    <string name="iterations">steps: </string>
+    <string name="iterations">step: </string>
     <string name="iteration"> %d</string>
     <string name="pi">\u03c0 = %.14f</string>
 </resources>
