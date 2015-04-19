@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
-    private static final double PRECISION = 0.00000000000001;
+    static final double ACCURACY = 0.00000000000001;
     private static final int EVENT_NEW_VALUE = 1;
     private static final int EVENT_FINISHED_CALCULATION = 2;
 
@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
                     double oldPi = 10.0;
                     double pi = 20.0;
                     graphView.clearPoints();
-                    while (isRunning && Math.abs(oldPi - pi) > PRECISION) {
+                    while (isRunning && Math.abs(oldPi - pi) > ACCURACY) {
                         double x = random.nextDouble() * 2.0d - 1.0d;
                         double y = random.nextDouble() * 2.0d - 1.0d;
                         boolean isInside  = (x * x + y * y) < 1.0d;
@@ -111,6 +111,7 @@ public class MainActivity extends ActionBarActivity {
                         Message msg = handler.obtainMessage(EVENT_NEW_VALUE);
                         msg.obj = pi;
                         msg.sendToTarget();
+                        graphView.setPi(pi);
                         graphView.drawPoint(x, y, isInside);
                         try {
                             sleep(1);
