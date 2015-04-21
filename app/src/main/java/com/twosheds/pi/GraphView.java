@@ -93,4 +93,19 @@ public class GraphView extends View {
         paintCircle.setStyle(Paint.Style.FILL_AND_STROKE);
         paintCircle.setStrokeWidth(1);
     }
+
+    private void drawIcon() {
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paintBackground);
+
+        paintSquare.setStyle(Paint.Style.FILL_AND_STROKE);
+        paintCircle.setStrokeWidth(1);
+        canvas.drawRect(0, 0, radius * 2, radius * 2, paintSquare);
+
+        paintCircle.setStyle(Paint.Style.FILL_AND_STROKE);
+        paintCircle.setStrokeWidth(1);
+        canvas.drawCircle(radius, radius, radius, paintCircle);
+
+        paintPi.setAlpha(255);
+        this.canvas.drawText("\u03c0", center.x - 3*radius/5, center.y + 2*radius/5, paintPi);
+    }
 }
