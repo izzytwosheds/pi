@@ -12,7 +12,6 @@ public class GraphView extends View {
     private Paint paintBackground;
     private Paint paintSquare;
     private Paint paintCircle;
-    private Paint paintPi;
 
     private float radius;
     private Point center;
@@ -34,19 +33,12 @@ public class GraphView extends View {
         paintCircle = new Paint();
         paintCircle.setColor(getContext().getResources().getColor(R.color.cicle));
         paintCircle.setAntiAlias(true);
-
-        paintPi = new Paint();
-        paintPi.setColor(getContext().getResources().getColor(R.color.pi));
-        paintPi.setStyle(Paint.Style.FILL_AND_STROKE);
-        paintPi.setAntiAlias(true);
     }
 
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         radius = Math.min(w, h)/2;
         center = new Point(w/2, h/2);
-
-        paintPi.setTextSize(radius * 2);
 
         // TODO: handle existing bitmap
         bitmap = Bitmap.createBitmap((int)radius*2, (int)radius*2, Bitmap.Config.RGB_565);
@@ -64,14 +56,6 @@ public class GraphView extends View {
         int drawY = (int) (radius * y + radius);
         canvas.drawCircle(drawX, drawY, 2, isInside ? paintCircle : paintSquare);
         postInvalidate();
-    }
-
-    void setPi(double pi) {
-        double accuracy = Math.min(1.0, Math.abs(Math.PI - pi));
-        double accuracyFactor = Math.log10(MainActivity.ACCURACY / accuracy) / Math.log10(MainActivity.ACCURACY);
-        int alpha = 255 - Math.min(255, (int) (255 * accuracyFactor));
-        paintPi.setAlpha(alpha);
-        this.canvas.drawText("\u03c0", center.x - 3*radius/5, center.y + 2*radius/5, paintPi);
     }
 
     void clearPoints() {
@@ -94,7 +78,7 @@ public class GraphView extends View {
         paintCircle.setStrokeWidth(1);
     }
 
-    private void drawIcon() {
+    void drawIcon() {
         canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paintBackground);
 
         paintSquare.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -104,8 +88,5 @@ public class GraphView extends View {
         paintCircle.setStyle(Paint.Style.FILL_AND_STROKE);
         paintCircle.setStrokeWidth(1);
         canvas.drawCircle(radius, radius, radius, paintCircle);
-
-        paintPi.setAlpha(255);
-        this.canvas.drawText("\u03c0", center.x - 3*radius/5, center.y + 2*radius/5, paintPi);
     }
 }

@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
 
     private GraphView graphView;
     private TextView piView;
+    private ImageView transparentPiView;
     private TextView stepView;
     private Button startButton;
 
@@ -50,6 +52,7 @@ public class MainActivity extends ActionBarActivity {
 
         graphView = (GraphView) findViewById(R.id.graph);
         piView = (TextView) findViewById(R.id.pi);
+        transparentPiView = (ImageView) findViewById(R.id.pi_transparent);
         stepView = (TextView) findViewById(R.id.steps);
         startButton = (Button) findViewById(R.id.button_start);
 
@@ -111,7 +114,6 @@ public class MainActivity extends ActionBarActivity {
                         Message msg = handler.obtainMessage(EVENT_NEW_VALUE);
                         msg.obj = pi;
                         msg.sendToTarget();
-                        graphView.setPi(pi);
                         graphView.drawPoint(x, y, isInside);
                         try {
                             sleep(1);
@@ -129,6 +131,7 @@ public class MainActivity extends ActionBarActivity {
     private void updateViews(double pi) {
         piView.setText(getString(R.string.pi, pi));
         stepView.setText(getString(R.string.iteration, countTotal));
+        transparentPiView.setAlpha(getAlpha(pi));
     }
 
     private void stopCalculation() {
@@ -136,5 +139,11 @@ public class MainActivity extends ActionBarActivity {
         startButton.setText(R.string.action_start);
         countTotal = 0;
         countInside = 0;
+    }
+
+    private float getAlpha(double pi) {
+        double accuracy = Math.min(1.0, Math.abs(Math.PI - pi));
+        double accuracyFactor = Math.log10(MainActivity.ACCURACY / accuracy) / Math.log10(MainActivity.ACCURACY);
+        return 1 - Math.min(1, (float) (1 * accuracyFactor));
     }
 }

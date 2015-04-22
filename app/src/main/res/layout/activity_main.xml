@@ -17,12 +17,27 @@
         android:paddingTop="20dip"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
-
-    <com.twosheds.pi.GraphView
-        android:id="@+id/graph"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
+
+        <com.twosheds.pi.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/pi_transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/pi"
+            android:padding="50dip"
+            android:contentDescription="@string/pi"/>
+
+        </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
