@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                         countTotal++;
 
-                        if (countTotal != countInside) {
+                        if (countTotal != countInside && countInside > 0) {
                             oldPi = pi;
                         }
                         pi = (double) countInside * 4.0d / (double) countTotal;
