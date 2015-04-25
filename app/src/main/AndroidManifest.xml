@@ -7,14 +7,34 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MonteCarloActivity"
+            android:label="@string/monte_carlo"
+            android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="com.twosheds.pi.action.PI" />
+                <category android:name="com.twosheds.pi.category.PI" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".LeinbnitzActivity"
+            android:label="@string/gregory_leibnitz"
+            android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="com.twosheds.pi.action.PI" />
+                <category android:name="com.twosheds.pi.category.PI" />
             </intent-filter>
         </activity>
     </application>
