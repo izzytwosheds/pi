@@ -17,22 +17,21 @@
         android:paddingTop="20dip"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"/>
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/formula"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:paddingTop="20dip"
+        android:contentDescription="@string/formula"/>
 
-        <ImageView
-            android:id="@+id/pi_transparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/pi"
-            android:padding="50dip"
-            android:contentDescription="@string/pi"/>
-
-        </RelativeLayout>
-
-
+    <ImageView
+        android:id="@+id/pi_transparent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/pi"
+        android:padding="50dip"
+        android:contentDescription="@string/pi"/>
 
     <LinearLayout
         android:layout_width="match_parent"

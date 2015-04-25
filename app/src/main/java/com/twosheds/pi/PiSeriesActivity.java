@@ -19,6 +19,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
 
     protected TextView piView;
     protected ImageView transparentPiView;
+    protected ImageView formulaView;
     protected TextView stepView;
     protected Button startButton;
 
@@ -46,6 +47,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
 
         piView = (TextView) findViewById(R.id.pi);
         transparentPiView = (ImageView) findViewById(R.id.pi_transparent);
+        formulaView = (ImageView) findViewById(R.id.formula);
         stepView = (TextView) findViewById(R.id.steps);
         startButton = (Button) findViewById(R.id.button_start);
 

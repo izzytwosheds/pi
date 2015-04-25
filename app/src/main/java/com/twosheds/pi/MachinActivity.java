@@ -8,6 +8,11 @@ public class MachinActivity extends PiSeriesActivity {
     private double z2 = 1.0 / 239.0;
 
     @Override
+    protected void init() {
+        formulaView.setImageResource(R.drawable.machin);
+    }
+
+    @Override
     protected double calculateTerm() {
         double term = 4.0 * sign * (4 * Math.pow(z1, d) / d - Math.pow(z2 , d) / d);
 

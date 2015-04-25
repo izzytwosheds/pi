@@ -11,4 +11,5 @@
     <string name="iterations">step: </string>
     <string name="iteration"> %d</string>
     <string name="pi">\u03c0 = %.14f</string>
+    <string name="formula">formula</string>
 </resources>

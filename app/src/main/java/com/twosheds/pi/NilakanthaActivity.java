@@ -7,6 +7,7 @@ public class NilakanthaActivity extends PiSeriesActivity {
     @Override
     protected void init() {
         piInit = 3;
+        formulaView.setImageResource(R.drawable.nilakantha);
     }
 
     @Override

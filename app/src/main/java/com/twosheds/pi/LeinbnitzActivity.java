@@ -5,6 +5,11 @@ public class LeinbnitzActivity extends PiSeriesActivity {
     private int sign = 1;
 
     @Override
+    protected void init() {
+        formulaView.setImageResource(R.drawable.leibnitz);
+    }
+
+    @Override
     protected double calculateTerm() {
         double term = 4.0 * sign / denominator;
 
