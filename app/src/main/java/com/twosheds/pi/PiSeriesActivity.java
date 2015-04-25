@@ -22,6 +22,8 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
     protected TextView stepView;
     protected Button startButton;
 
+    protected double piInit;
+
     protected Handler handler = new Handler() {
         @Override
         public void handleMessage(Message message) {
@@ -49,6 +51,12 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
 
         numSteps = 0;
         updateViews(0.0);
+
+        init();
+    }
+
+    protected void init() {
+        piInit = 0;
     }
 
     protected abstract double calculateTerm();
@@ -63,7 +71,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
                 @Override
                 public void run() {
                     double oldPi = 10;
-                    double pi = 0;
+                    double pi = piInit;
 
                     while (isRunning && Math.abs(oldPi - pi) > ACCURACY) {
                         oldPi = pi;

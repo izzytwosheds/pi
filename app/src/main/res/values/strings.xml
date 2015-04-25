@@ -3,6 +3,7 @@
     <string name="monte_carlo">Monte-Carlo</string>
     <string name="gregory_leibnitz">Gregory-Leibnitz series</string>
     <string name="machin_series">Machin series</string>
+    <string name="nilakantha_series">Nilakantha series</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_start">Start</string>

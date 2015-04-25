@@ -48,6 +48,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".NilakanthaActivity"
+            android:label="@string/nilakantha_series"
+            android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="com.twosheds.pi.action.PI" />
+                <category android:name="com.twosheds.pi.category.PI" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
