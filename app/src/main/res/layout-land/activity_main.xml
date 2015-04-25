@@ -65,7 +65,7 @@
 
     <Button
         android:id="@+id/button_start"
-        android:layout_width="200dip"
+        android:layout_width="600dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/action_start"
