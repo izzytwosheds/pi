@@ -57,6 +57,12 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
         init();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
+    }
+
     protected void init() {
         piInit = 0;
     }
