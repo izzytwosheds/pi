@@ -67,7 +67,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
         piInit = 0;
     }
 
-    protected abstract double calculateTerm();
+    protected abstract double calculatePi(double oldPi);
 
     public void onStartCalculation(View view) {
         if (isRunning) {
@@ -83,7 +83,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
 
                     while (isRunning && Math.abs(oldPi - pi) > ACCURACY) {
                         oldPi = pi;
-                        pi += calculateTerm();
+                        pi = calculatePi(pi);
                         numSteps++;
 
                         Message msg = handler.obtainMessage(EVENT_NEW_VALUE);

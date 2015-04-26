@@ -11,12 +11,12 @@ public class NilakanthaActivity extends PiSeriesActivity {
     }
 
     @Override
-    protected double calculateTerm() {
-        double term = 4.0 * sign / (d * (d+1.0) * (d+2.0));
+    protected double calculatePi(double oldPi) {
+        double pi = oldPi + 4.0 * sign / (d * (d+1.0) * (d+2.0));
 
         d += 2.0;
         sign = -1 * sign;
 
-        return term;
+        return pi;
     }
 }

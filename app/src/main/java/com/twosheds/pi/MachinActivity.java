@@ -13,12 +13,12 @@ public class MachinActivity extends PiSeriesActivity {
     }
 
     @Override
-    protected double calculateTerm() {
-        double term = 4.0 * sign * (4 * Math.pow(z1, d) / d - Math.pow(z2 , d) / d);
+    protected double calculatePi(double oldPi) {
+        double pi = oldPi + 4.0 * sign * (4 * Math.pow(z1, d) / d - Math.pow(z2 , d) / d);
 
         d += 2.0;
         sign = -1 * sign;
 
-        return term;
+        return pi;
     }
 }
