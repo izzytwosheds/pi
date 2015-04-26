@@ -58,6 +58,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".VieteActivity"
+            android:label="@string/viete_product"
+            android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="com.twosheds.pi.action.PI" />
+                <category android:name="com.twosheds.pi.category.PI" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
