@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">\u03c0 Calculator</string>
+    <string name="app_name">Calculate \u03c0</string>
     <string name="monte_carlo">Monte-Carlo</string>
     <string name="gregory_leibnitz">Gregory-Leibnitz series</string>
     <string name="machin_series">Machin series</string>
