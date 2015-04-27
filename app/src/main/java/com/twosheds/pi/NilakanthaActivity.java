@@ -1,11 +1,13 @@
 package com.twosheds.pi;
 
 public class NilakanthaActivity extends PiSeriesActivity {
-    private double d = 2.0;
-    private int sign = 1;
+    private double d;
+    private int sign;
 
     @Override
     protected void init() {
+        d = 2.0;
+        sign = 1;
         piInit = 3;
         formulaView.setImageResource(R.drawable.nilakantha);
     }

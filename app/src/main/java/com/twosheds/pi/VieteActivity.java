@@ -1,11 +1,12 @@
 package com.twosheds.pi;
 
 public class VieteActivity extends PiSeriesActivity {
-    private double product = 1.0;
+    private double product;
 
     @Override
     protected void init() {
         piInit = 1;
+        product = 1.0;
         formulaView.setImageResource(R.drawable.viete);
     }
 

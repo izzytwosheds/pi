@@ -1,12 +1,14 @@
 package com.twosheds.pi;
 
 public class LeinbnitzActivity extends PiSeriesActivity {
-    private double denominator = 1;
-    private int sign = 1;
+    private double denominator;
+    private int sign;
 
     @Override
     protected void init() {
         formulaView.setImageResource(R.drawable.leibnitz);
+        denominator = 1;
+        sign = 1;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.twosheds.pi;
 
 public class MachinActivity extends PiSeriesActivity {
-    private double d = 1;
-    private int sign = 1;
+    private double d;
+    private int sign;
 
     private double z1 = 1.0 / 5.0;
     private double z2 = 1.0 / 239.0;
@@ -10,6 +10,8 @@ public class MachinActivity extends PiSeriesActivity {
     @Override
     protected void init() {
         formulaView.setImageResource(R.drawable.machin);
+        d = 1;
+        sign = 1;
     }
 
     @Override

@@ -113,6 +113,7 @@ public abstract class PiSeriesActivity extends ActionBarActivity {
         isRunning = false;
         startButton.setText(R.string.action_start);
         numSteps = 0;
+        init();
     }
 
     protected float getAlpha(double pi) {
