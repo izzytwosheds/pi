@@ -78,6 +78,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".RamanujanActivity"
+            android:label="@string/ramanujan"
+            android:screenOrientation="nosensor">
+            <intent-filter>
+                <action android:name="com.twosheds.pi.action.PI" />
+                <category android:name="com.twosheds.pi.category.PI" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
